@@ -88,6 +88,16 @@ in
     "${config.xdg.dataHome}/npm/bin"
   ];
 
+  home.activation.setHyprlandAzertyLayout = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    hypr_conf="${config.xdg.configHome}/hypr/hyprland.conf"
+    if [ -f "$hypr_conf" ]; then
+      ${pkgs.gnused}/bin/sed -i \
+        -e 's/^\s*kb_layout = .*/    kb_layout = fr/' \
+        -e 's/^\s*kb_variant = .*/    kb_variant = azerty/' \
+        "$hypr_conf"
+    fi
+  '';
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell

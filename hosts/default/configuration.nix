@@ -45,14 +45,14 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
+
+  # Enable the GNOME Desktop Environment.
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -62,6 +62,12 @@
 
   # Configure console keymap
   console.keyMap = "fr";
+
+  # Make sure wlroots-based compositors pick the right keyboard layout.
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "fr";
+    XKB_DEFAULT_VARIANT = "azerty";
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -84,6 +90,21 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
+  # Provide a simple TUI greeter so we can launch Hyprland without GNOME.
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/Hyprland";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "shmul95";
+      };
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shmul95 = {
@@ -111,16 +132,38 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Install hyprland
+  programs.hyprland.enable = true;
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # for general purpose (would need to be cleaned)
     home-manager
     zsh
+    tmux
     vim
+    neovim
+    firefox
     wget
+
+    # for hyprland
+    waybar # simple
+    (waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      })
+    )
+    dunst
+    libnotify
+    swww
+    kitty
+    rofi
+    # eww # more custom
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
