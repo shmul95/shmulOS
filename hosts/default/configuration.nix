@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
+      ../../modules/nixos/hyprland.nix
     ];
 
   # Bootloader.
@@ -132,11 +133,6 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Install hyprland
-  programs.hyprland.enable = true;
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -152,18 +148,6 @@
     firefox
     wget
 
-    # for hyprland
-    waybar # simple
-    (waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    )
-    dunst
-    libnotify
-    swww
-    kitty
-    rofi
-    # eww # more custom
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
