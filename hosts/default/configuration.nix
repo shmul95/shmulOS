@@ -124,6 +124,7 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager = {
+    backupFileExtension = "hm-bak";
     extraSpecialArgs = { inherit inputs; };
     users = {
       "shmul95" = import ./home.nix;
