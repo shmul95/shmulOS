@@ -1,16 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
 
-let
-  shmulvimModule = import ../../modules/home-manager/shmulvim.nix inputs.shmulvim;
-  tshmuxModule = import ../../modules/home-manager/tshmux.nix inputs.tshmux;
-  zshmulModule = import ../../modules/home-manager/zshmul.nix inputs.zshmul;
-  shmulrcModule = import ../../modules/home-manager/shmulrc.nix {
-    inherit shmulvimModule tshmuxModule zshmulModule;
-  };
-in
 {
   imports = [
-    shmulrcModule
+    (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
+    (import ../../modules/home-manager/tshmux.nix inputs.tshmux)
+    (import ../../modules/home-manager/zshmul.nix inputs.zshmul)
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -87,16 +81,6 @@ in
   home.sessionPath = [
     "${config.xdg.dataHome}/npm/bin"
   ];
-
-  home.activation.setHyprlandAzertyLayout = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    hypr_conf="${config.xdg.configHome}/hypr/hyprland.conf"
-    if [ -f "$hypr_conf" ]; then
-      ${pkgs.gnused}/bin/sed -i \
-        -e 's/^\s*kb_layout = .*/    kb_layout = fr/' \
-        -e 's/^\s*kb_variant = .*/    kb_variant = azerty/' \
-        "$hypr_conf"
-    fi
-  '';
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
