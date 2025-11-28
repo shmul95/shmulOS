@@ -4,6 +4,7 @@ let
   cfg = config.shmul.zshmul;
   zshrc = zshmulInput.outPath + "/zshrc";
   baseZshrc = builtins.readFile zshrc;
+  hmSessionVars = "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
   unsafeAutostart = ''
 # Auto-start tmux if not already inside tmux
 [ -z "$TMUX" ] && tmux
@@ -17,6 +18,12 @@ fi
 
 '';
   patchedZshrc = lib.replaceStrings [unsafeAutostart] [safeAutostart] baseZshrc;
+  sourcedZshrc = ''
+if [ -f ${hmSessionVars} ]; then
+  source ${hmSessionVars}
+fi
+
+'' + patchedZshrc;
   customDir = zshmulInput.outPath + "/oh-my-zsh-custom";
   ohMyZshWithCustom = pkgs.runCommand "zshmul-oh-my-zsh" {} ''
     mkdir -p $out
@@ -32,7 +39,7 @@ in {
   config = lib.mkMerge [
     { shmul.zshmul.enable = lib.mkDefault true; }
     (lib.mkIf cfg.enable {
-      home.file.".zshrc".text = patchedZshrc;
+      home.file.".zshrc".text = sourcedZshrc;
       home.file.".oh-my-zsh".source = ohMyZshWithCustom;
     })
   ];

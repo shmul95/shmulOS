@@ -162,15 +162,138 @@
         "type": "github"
       }
     },
-    "tshmux": {
+    "tmuxPluginContinuum": {
       "flake": false,
       "locked": {
-        "lastModified": 1763845846,
-        "narHash": "sha256-0kNcywd/gCL0Qzr60zq6N7Mh+hdfcciXBfw5+B2kiF8=",
-        "owner": "shmul95",
-        "repo": "tshmux",
-        "rev": "2254171d45bd2f90b0f2b252ec21e464f533c62c",
+        "lastModified": 1705754277,
+        "narHash": "sha256-W71QyLwC/MXz3bcLR2aJeWcoXFI/A3itjpcWKAdVFJY=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-continuum",
+        "rev": "0698e8f4b17d6454c71bf5212895ec055c578da0",
         "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-continuum",
+        "type": "github"
+      }
+    },
+    "tmuxPluginNavigator": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752544267,
+        "narHash": "sha256-IEPnr/GdsAnHzdTjFnXCuMyoNLm3/Jz4cBAM0AJBrj8=",
+        "owner": "christoomey",
+        "repo": "vim-tmux-navigator",
+        "rev": "c45243dc1f32ac6bcf6068e5300f3b2b237e576a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "christoomey",
+        "repo": "vim-tmux-navigator",
+        "type": "github"
+      }
+    },
+    "tmuxPluginResurrect": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678098022,
+        "narHash": "sha256-FcSjYyWjXM1B+WmiK2bqUNJYtH7sJBUsY2IjSur5TjY=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-resurrect",
+        "rev": "cff343cf9e81983d3da0c8562b01616f12e8d548",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-resurrect",
+        "type": "github"
+      }
+    },
+    "tmuxPluginSensible": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1660507698,
+        "narHash": "sha256-sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-sensible",
+        "rev": "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-sensible",
+        "type": "github"
+      }
+    },
+    "tmuxPluginThemepack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1577056464,
+        "narHash": "sha256-c5EGBrKcrqHWTKpCEhxYfxPeERFrbTuDfcQhsUAbic4=",
+        "owner": "jimeh",
+        "repo": "tmux-themepack",
+        "rev": "7c59902f64dcd7ea356e891274b21144d1ea5948",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jimeh",
+        "repo": "tmux-themepack",
+        "type": "github"
+      }
+    },
+    "tmuxPluginTpm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677502767,
+        "narHash": "sha256-hW8mfwB8F9ZkTQ72WQp/1fy8KL1IIYMZBtZYIwZdMQc=",
+        "owner": "tmux-plugins",
+        "repo": "tpm",
+        "rev": "99469c4a9b1ccf77fade25842dc7bafbc8ce9946",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tpm",
+        "type": "github"
+      }
+    },
+    "tmuxPluginYank": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689770565,
+        "narHash": "sha256-/5HPaoOx2U2d8lZZJo5dKmemu6hKgHJYq23hxkddXpA=",
+        "owner": "tmux-plugins",
+        "repo": "tmux-yank",
+        "rev": "acfd36e4fcba99f8310a7dfb432111c242fe7392",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tmux-plugins",
+        "repo": "tmux-yank",
+        "type": "github"
+      }
+    },
+    "tshmux": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "tmuxPluginContinuum": "tmuxPluginContinuum",
+        "tmuxPluginNavigator": "tmuxPluginNavigator",
+        "tmuxPluginResurrect": "tmuxPluginResurrect",
+        "tmuxPluginSensible": "tmuxPluginSensible",
+        "tmuxPluginThemepack": "tmuxPluginThemepack",
+        "tmuxPluginTpm": "tmuxPluginTpm",
+        "tmuxPluginYank": "tmuxPluginYank"
+      },
+      "locked": {
+        "dirtyRev": "2254171d45bd2f90b0f2b252ec21e464f533c62c-dirty",
+        "dirtyShortRev": "2254171-dirty",
+        "lastModified": 1763845846,
+        "narHash": "sha256-f1LAlDaN2V+ohViS+MUS+fT84kRmSOteBtN1umx3KzM=",
+        "type": "git",
+        "url": "file:///home/shmul95/Repositories/shmulrc/tshmux"
       },
       "original": {
         "owner": "shmul95",

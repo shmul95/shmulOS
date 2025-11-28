@@ -15,7 +15,7 @@
 
     tshmux = {
       url = "github:shmul95/tshmux";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     zshmul = {

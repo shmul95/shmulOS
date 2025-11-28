@@ -1,40 +1,22 @@
-tshmuxInput:
+{ inputs }:
 { config, lib, pkgs, ... }:
 
 let
   cfg = config.shmul.tshmux;
-  tmuxConf = "${tshmuxInput}/tmux.conf";
-  pluginsDir = "${tshmuxInput}/plugins";
-  installScript = "${tshmuxInput}/install.sh";
-  pluginsAvailable =
-    let
-      entries =
-        if builtins.pathExists pluginsDir then
-          builtins.attrNames (builtins.readDir pluginsDir)
-        else
-          [ ];
-    in entries != [ ];
-  installScriptAvailable = builtins.pathExists installScript;
+  tshmuxPkg = inputs.tshmux.packages.${pkgs.system}.default;
+  pluginSet = inputs.tshmux.packages.${pkgs.system}.pluginSet;
+  tmuxConf = builtins.readFile "${tshmuxPkg}/share/tshmux/tmux.conf";
+  patchedConf = lib.replaceStrings ["/usr/bin/zsh"] ["${pkgs.zsh}/bin/zsh"] tmuxConf;
 in
 {
-  options.shmul.tshmux.enable = lib.mkEnableOption "tmux setup (tshmux)";
+  options.shmul.tshmux.enable =
+    lib.mkEnableOption "tmux setup from the tshmux flake";
 
   config = lib.mkIf cfg.enable {
-    programs.tmux.enable = true;
-
-    home.file =
-      {
-        ".tmux.conf".source = tmuxConf;
-      }
-      // lib.optionalAttrs pluginsAvailable {
-        ".tmux/plugins".source = pluginsDir;
-      };
-
-    home.activation = lib.optionalAttrs installScriptAvailable {
-      tshmuxInstall = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        cd ${tshmuxInput}
-        ${pkgs.bash}/bin/bash ./install.sh
-      '';
+    programs.tmux = {
+      enable = true;
+      extraConfig = patchedConf;
+      plugins = builtins.attrValues pluginSet;
     };
   };
 }

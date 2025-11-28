@@ -9,12 +9,24 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
-      ../../modules/nixos/hyprland.nix
+      # ../../modules/nixos/hyprland.nix
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    efiSupport = true;
+    theme = null;
+    splashImage = null;
+    useOSProber = false;
+    extraConfig = ''
+      terminal_input console
+      terminal_output console
+    '';
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -46,11 +58,17 @@
   };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -69,6 +87,11 @@
     XKB_DEFAULT_LAYOUT = "fr";
     XKB_DEFAULT_VARIANT = "azerty";
   };
+
+  boot.kernelParams = [
+    "amdgpu.dc=1"
+    "video=HDMI-A-1:1920x1080@60"
+  ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -93,19 +116,19 @@
   # services.xserver.libinput.enable = true;
 
   # Provide a simple TUI greeter so we can launch Hyprland without GNOME.
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/Hyprland";
-        user = "greeter";
-      };
-      initial_session = {
-        command = "${pkgs.hyprland}/bin/Hyprland";
-        user = "shmul95";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = true;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/Hyprland";
+  #       user = "greeter";
+  #     };
+  #     initial_session = {
+  #       command = "${pkgs.hyprland}/bin/Hyprland";
+  #       user = "shmul95";
+  #     };
+  #   };
+  # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shmul95 = {

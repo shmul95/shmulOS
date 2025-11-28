@@ -3,7 +3,7 @@
 {
   imports = [
     (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
-    (import ../../modules/home-manager/tshmux.nix inputs.tshmux)
+    (import ../../modules/home-manager/tshmux.nix { inherit inputs; })
     (import ../../modules/home-manager/zshmul.nix inputs.zshmul)
   ];
 
@@ -32,6 +32,9 @@
     bat
 
     discord
+
+    xclip
+    wl-clipboard
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -79,6 +82,8 @@
     '';
   };
 
+  shmul.tshmux.enable = true;
+
   home.file.".npmrc".text = ''
     prefix=${config.xdg.dataHome}/npm
   '';
@@ -87,10 +92,10 @@
     "${config.xdg.dataHome}/npm/bin"
   ];
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    extraConfig = builtins.readFile ./hyprland.conf;
-  };
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   extraConfig = builtins.readFile ./hyprland.conf;
+  # };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -109,7 +114,7 @@
   #  /etc/profiles/per-user/shmul95/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
