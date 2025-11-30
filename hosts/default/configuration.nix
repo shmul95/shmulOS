@@ -135,13 +135,7 @@
     isNormalUser = true;
     description = "shmul95";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      vim
-      neovim
-      tmux
-      zsh
-      firefox
-    ];
+    packages = with pkgs; [ ];
   };
 
   home-manager.useGlobalPkgs = true;

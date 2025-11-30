@@ -43,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763845215,
-        "narHash": "sha256-8W4YByiS3zxwcdDR2sABm1nUCSOEXJwdY/XddRTVjWM=",
+        "lastModified": 1764510518,
+        "narHash": "sha256-hDFkciyjhjMLRC/qXCREWX1dgq8kopiuJdwXdfVlJuQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9a5042a88caea9b729a1d3bc981069159de4fc49",
+        "rev": "83053e1d337f33e0b48250588006e4b9df2f0d9d",
         "type": "github"
       },
       "original": {
@@ -58,11 +58,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1763678758,
-        "narHash": "sha256-+hBiJ+kG5IoffUOdlANKFflTT5nO3FrrR2CA3178Y5s=",
+        "lastModified": 1764242076,
+        "narHash": "sha256-sKoIWfnijJ0+9e4wRvIgm/HgE27bzwQxcEmo2J/gNpI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "117cc7f94e8072499b0a7aa4c52084fa4e11cc9b",
+        "rev": "2fad6eac6077f03fe109c4d4eb171cf96791faa4",
         "type": "github"
       },
       "original": {
@@ -90,11 +90,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1763678758,
-        "narHash": "sha256-+hBiJ+kG5IoffUOdlANKFflTT5nO3FrrR2CA3178Y5s=",
+        "lastModified": 1764242076,
+        "narHash": "sha256-sKoIWfnijJ0+9e4wRvIgm/HgE27bzwQxcEmo2J/gNpI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "117cc7f94e8072499b0a7aa4c52084fa4e11cc9b",
+        "rev": "2fad6eac6077f03fe109c4d4eb171cf96791faa4",
         "type": "github"
       },
       "original": {
@@ -226,22 +226,6 @@
         "type": "github"
       }
     },
-    "tmuxPluginThemepack": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1577056464,
-        "narHash": "sha256-c5EGBrKcrqHWTKpCEhxYfxPeERFrbTuDfcQhsUAbic4=",
-        "owner": "jimeh",
-        "repo": "tmux-themepack",
-        "rev": "7c59902f64dcd7ea356e891274b21144d1ea5948",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jimeh",
-        "repo": "tmux-themepack",
-        "type": "github"
-      }
-    },
     "tmuxPluginTpm": {
       "flake": false,
       "locked": {
@@ -283,17 +267,16 @@
         "tmuxPluginNavigator": "tmuxPluginNavigator",
         "tmuxPluginResurrect": "tmuxPluginResurrect",
         "tmuxPluginSensible": "tmuxPluginSensible",
-        "tmuxPluginThemepack": "tmuxPluginThemepack",
         "tmuxPluginTpm": "tmuxPluginTpm",
         "tmuxPluginYank": "tmuxPluginYank"
       },
       "locked": {
-        "dirtyRev": "2254171d45bd2f90b0f2b252ec21e464f533c62c-dirty",
-        "dirtyShortRev": "2254171-dirty",
-        "lastModified": 1763845846,
-        "narHash": "sha256-f1LAlDaN2V+ohViS+MUS+fT84kRmSOteBtN1umx3KzM=",
-        "type": "git",
-        "url": "file:///home/shmul95/Repositories/shmulrc/tshmux"
+        "lastModified": 1764458921,
+        "narHash": "sha256-aTE/KxfybGQs8YhYdS4VPXIkwjY1DP9yD0xnRKpBZWQ=",
+        "owner": "shmul95",
+        "repo": "tshmux",
+        "rev": "40fc5ff14ba31debe8c14b26d6c0915a583f9adc",
+        "type": "github"
       },
       "original": {
         "owner": "shmul95",
@@ -301,17 +284,34 @@
         "type": "github"
       }
     },
+    "typewritten-theme": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735752575,
+        "narHash": "sha256-+9s2csXrWoyrLEhdoU4g4tXWCvIGdlgGwCy+KBtk9lw=",
+        "owner": "reobin",
+        "repo": "typewritten",
+        "rev": "0dd11cc5b2681158820f06881b5cdb3b42f9c924",
+        "type": "github"
+      },
+      "original": {
+        "owner": "reobin",
+        "repo": "typewritten",
+        "type": "github"
+      }
+    },
     "zshmul": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_3",
+        "typewritten-theme": "typewritten-theme"
       },
       "locked": {
-        "lastModified": 1763835415,
-        "narHash": "sha256-HcooIJprYdtfsuNkxTn3SoCfvID0kknQS+6XEFZYnyY=",
+        "lastModified": 1764516708,
+        "narHash": "sha256-5a1aKTW2nsw2vGa/trKcFfCOjVRNHRiCmBByNQ1syls=",
         "owner": "shmul95",
         "repo": "zshmul",
-        "rev": "e4bda71cd992accdc52aae1c0f585c93f3b1a8cf",
+        "rev": "959a0a7c7afb702cbd628a369e96bd4701e41439",
         "type": "github"
       },
       "original": {
