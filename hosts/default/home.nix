@@ -63,7 +63,9 @@
 
   # Install npm packages globally on rebuild
   home.activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    $DRY_RUN_CMD ${pkgs.nodejs}/bin/npm install -g @github/copilot @openai/codex
+    run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
+    run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@openai/codex
+    run ${pkgs.nodejs}/bin/npm install -g @github/copilot @openai/codex
   '';
 
   programs.home-manager.enable = true;
