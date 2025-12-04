@@ -37,6 +37,16 @@
     '';
   };
 
+  programs.kitty = {
+    enable = true;
+    settings = {
+      font_family = "JetBrainsMono Nerd Font";
+      disable_ligatures = "never";
+      # Enable ligatures for JetBrainsMono Nerd Font
+      "font_features JetBrainsMono Nerd Font" = "+liga +calt";
+    };
+  };
+
   shmul.tshmux.enable = true;
 
   home.file.".npmrc".text = ''
@@ -50,6 +60,11 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  # Install npm packages globally on rebuild
+  home.activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD ${pkgs.nodejs}/bin/npm install -g @github/copilot @openai/codex
+  '';
 
   programs.home-manager.enable = true;
 }

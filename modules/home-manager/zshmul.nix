@@ -73,8 +73,6 @@ in {
     };
 
     initExtraFirst = ''
-      [ -z "$TMUX" ] && tmux
-
       export PATH="$PATH:$HOME/flutter/bin"
 
       # Use a writable custom directory for Oh My Zsh.
@@ -96,10 +94,6 @@ in {
     '';
 
     initExtra = ''
-      if [ -f '/home/samuel/Repositories/gemma_team_b/python_app/google-cloud-sdk/path.zsh.inc' ]; then . '/home/samuel/Repositories/gemma_team_b/python_app/google-cloud-sdk/path.zsh.inc'; fi
-
-      if [ -f '/home/samuel/Repositories/gemma_team_b/python_app/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/samuel/Repositories/gemma_team_b/python_app/google-cloud-sdk/completion.zsh.inc'; fi
-
       typeset -ga precmd_functions
       _assistant_bell_precmd() { [[ -n "$ASSISTANT_BELL_OFF" ]] && return; printf '\a'; }
       if ! (( $precmd_functions[(Ie)_assistant_bell_precmd] )); then

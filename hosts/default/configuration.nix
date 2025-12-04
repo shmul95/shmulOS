@@ -73,6 +73,9 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
+  # Enable Android dev (use built-in adb support instead of deprecated android-udev-rules)
+  programs.adb.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
@@ -134,7 +137,7 @@
   users.users.shmul95 = {
     isNormalUser = true;
     description = "shmul95";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" ];
     packages = with pkgs; [ ];
   };
 
@@ -150,6 +153,16 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable nix-ld to run non-Nix dynamically linked binaries.
+  programs.nix-ld = {
+    enable = true;
+    # Base libraries; extend this list if your project needs more.
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+    ];
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -182,7 +195,7 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 8443 ]; # 8443 is used for the rura project
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
