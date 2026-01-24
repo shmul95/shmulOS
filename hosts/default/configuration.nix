@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/galileo.nix 
+      # temporary modules
+      ../../modules/nixos/soft-serve.nix 
       # ../../modules/nixos/hyprland.nix
 
       inputs.home-manager.nixosModules.default
