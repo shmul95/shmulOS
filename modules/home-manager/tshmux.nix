@@ -8,6 +8,13 @@ let
     set-option -g default-shell ${pkgs.zsh}/bin/zsh
     set-option -g default-command ${pkgs.zsh}/bin/zsh
 
+    # Global color palette
+    set -g @color-yellow "#FFDF32"
+    set -g @color-black "#000000"
+    set -g @color-gray-light "#D8DEE9"
+    set -g @color-gray-medium "#ABB2BF"
+    set -g @color-gray-dark "#3B4252"
+
     # Bind Alt-n to a new window
     bind -n M-n new-window -c "#{pane_current_path}"
     # Bind Alt-Shift-n to a new session rooted in the current path
@@ -61,9 +68,9 @@ let
 
     set -sg escape-time 0
 
-    # Enter copy-mode with Alt-q, immediately start selection, and allow hjkl scrolling
+    # Enter copy-mode with Alt-q
     unbind -n M-q
-    bind -n M-q copy-mode -e \; send-keys -X begin-selection
+    bind -n M-q copy-mode
 
     # In copy-mode-vi, add vim-like selection and easy exit
     bind -T copy-mode-vi v send -X begin-selection
@@ -76,7 +83,6 @@ let
 
     bind -n M-w \
       send-keys 'codex' C-m \; \
-      new-window -n lazygit -c "#{pane_current_path}" -d 'lazygit' \; \
       new-window -n nvim -c "#{pane_current_path}" -d 'nvim' \; \
       new-window -n term -c "#{pane_current_path}"
 
@@ -85,17 +91,18 @@ let
     set -g @continuum-restore 'on'
 
     set -g status-position top
-    set -g status-style "fg=#FFDF32,bg=#000000"
-    set -g status-left "#[fg=#FFDF32,bold]\[ #S \]#[fg=#D8DEE9,bold] | "
+    set -g status-style "fg=#{@color-yellow},bg=#{@color-black}"
+    set -g status-left "#[fg=#{@color-yellow},bold]\[#S\]#[fg=#{@color-gray-light},bold] | "
     set -g status-left-length 40
-    set -g window-status-format "#[fg=#3B4252] #W "
-    set -g window-status-current-format "#[fg=#FFDF32,bg=#000000,bold] #W "
+    set -g window-status-format "#[fg=#{@color-gray-dark}] #W "
+    set -g window-status-current-format "#[fg=#{@color-yellow},bg=#{@color-black},bold] #W "
     set -g status-right ""
-    set -g message-style "fg=#D8DEE9,bg=#000000"
-    # Copy-mode selection: yellow background (same as status bar text)
-    set -g mode-style "fg=#3B4252,bg=#FFDF32"
-    set -g pane-border-style "fg=#3B4252"
-    set -g pane-active-border-style "fg=#ABB2BF"
+    set -g message-style "fg=#{@color-gray-light},bg=#{@color-black}"
+    # Copy-mode cursor line + selection styling
+    set -g mode-style "fg=#{@color-gray-dark},bg=#{@color-yellow}"
+    set -g copy-mode-selection-style "bg=#{@color-gray-dark}"
+    set -g pane-border-style "fg=#{@color-gray-dark}"
+    set -g pane-active-border-style "fg=#{@color-gray-medium}"
   '';
   localOverrides = ''
     # Ensure vi-style keys in copy mode (override any previous setting)
