@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  # Create the git user
+  # 1. Create the git user
   users.users.git = {
     isSystemUser = true;
     group = "git";
@@ -12,11 +12,20 @@
   };
   users.groups.git = {};
 
-  # Configure SSH for local access
+  # 2. Configure SSH for local access
   services.openssh.enable = true;
   
-  # Allow the git user to manage their own folder
+  # 3. Allow the git user to manage their own folder
   systemd.tmpfiles.rules = [
     "d /var/lib/git 0750 git git -"
   ];
+
+  # 4. Global Git settings for the whole system (Fixes the 'master' issue)
+  programs.git = {
+    enable = true;
+    config = {
+      init.defaultBranch = "main";
+      safe.directory = "/var/lib/git/*"; # Useful if you ever browse the bare repos
+    };
+  };
 }
