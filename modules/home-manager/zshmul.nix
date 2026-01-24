@@ -72,7 +72,7 @@ in {
       nd = "nix develop";
     };
 
-    initExtraFirst = ''
+    initContent = lib.mkBefore ''
       export PATH="$PATH:$HOME/flutter/bin"
 
       # Use a writable custom directory for Oh My Zsh.
@@ -91,9 +91,7 @@ in {
 
       zstyle ':omz:update' mode reminder
       zstyle ':omz:update' frequency 13
-    '';
 
-    initExtra = ''
       typeset -ga precmd_functions
       _assistant_bell_precmd() { [[ -n "$ASSISTANT_BELL_OFF" ]] && return; printf '\a'; }
       if ! (( $precmd_functions[(Ie)_assistant_bell_precmd] )); then

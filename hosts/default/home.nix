@@ -22,8 +22,10 @@
 
   programs.git = {
     enable = true;
-    userName = "shmul95";
-    userEmail = "samuel.gross@epitech.eu";
+    settings = {
+      user.name = "shmul95";
+      user.email = "samuel.gross@epitech.eu";
+    };
   };
 
   programs.bash = {
