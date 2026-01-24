@@ -65,7 +65,9 @@
   home.activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
     run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@openai/codex
-    run ${pkgs.nodejs}/bin/npm install -g @github/copilot @openai/codex
+
+    run ${pkgs.nodejs}/bin/npm install -g @github/copilot
+    run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
   '';
 
   programs.home-manager.enable = true;
