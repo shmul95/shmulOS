@@ -70,6 +70,8 @@ in {
       ll = "ls -lah";
       lg = "lazygit";
       nd = "nix develop";
+      nr = "nix run";
+      nb = "nix build";
     };
 
     initContent = lib.mkBefore ''
