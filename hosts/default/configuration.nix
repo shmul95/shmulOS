@@ -9,8 +9,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/galileo.nix 
-      # temporary modules
-      ../../modules/nixos/soft-serve.nix 
       # ../../modules/nixos/hyprland.nix
 
       inputs.home-manager.nixosModules.default
@@ -77,8 +75,8 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # Enable Android dev (use built-in adb support instead of deprecated android-udev-rules)
-  programs.adb.enable = true;
+  # # Enable Android dev (use built-in adb support instead of deprecated android-udev-rules)
+  # programs.adb.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -94,6 +92,8 @@
     XKB_DEFAULT_LAYOUT = "fr";
     XKB_DEFAULT_VARIANT = "azerty";
   };
+
+  programs.dconf.enable = true;
 
   boot.kernelParams = [
     "amdgpu.dc=1"
@@ -119,6 +119,12 @@
     #media-session.enable = true;
   };
 
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -176,13 +182,13 @@
   environment.systemPackages = with pkgs; [
     # for general purpose (would need to be cleaned)
     home-manager
-    zsh
-    tmux
-    vim
-    neovim
+
+    zsh tmux vim neovim
+
     firefox
     wget
 
+    phinger-cursors
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

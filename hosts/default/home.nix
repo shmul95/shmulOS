@@ -20,6 +20,23 @@
     pkgs.nerd-fonts.jetbrains-mono
   ];
 
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    # x11.enable = true; # Uncomment if you use X11 apps frequently
+    package = pkgs.phinger-cursors;
+    name = "phinger-cursors-light";
+    size = 24;
+  };
+  
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      package = pkgs.phinger-cursors;
+      name = "phinger-cursors-light";
+    };
+  };
+
   programs.git = {
     enable = true;
     settings = {
