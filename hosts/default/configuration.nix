@@ -4,9 +4,7 @@
 
 { config, pkgs, inputs, ... }:
 
-let 
-  zshmul = inputs.zshmul.packages.${pkgs.system}.default;
-in {
+{
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -131,7 +129,6 @@ in {
     description = "shmul95";
     extraGroups = [ "networkmanager" "wheel" "adbusers" ];
     packages = with pkgs; [ ];
-    # shell = zshmul;
   };
 
   home-manager.useGlobalPkgs = true;
@@ -159,28 +156,6 @@ in {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
-  # Make sure wlroots-based compositors pick the right keyboard layout.
-  # environment.sessionVariables = {
-  #   XKB_DEFAULT_LAYOUT = "fr";
-  #   XKB_DEFAULT_VARIANT = "azerty";
-  # };
-  #
-  # environment.shells = [ inputs.zshmul.packages.${pkgs.system}.default ];
-  #
-  # # List packages installed in system profile. To search, run:
-  # # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   # for general purpose (would need to be cleaned)
-  #   home-manager
-  #
-  #   zsh tmux vim neovim
-  #
-  #   firefox
-  #   wget
-  #
-  #   phinger-cursors
-  # ];
 
   environment = {
 
@@ -190,14 +165,9 @@ in {
       XKB_DEFAULT_VARIANT = "azerty";
     };
 
-
-    # my personal shell
-    # shells = [ zshmul ];
-
     # system wide pkgs
     systemPackages = with pkgs; [
       home-manager
-      zsh zshmul
       tmux
       vim neovim
 

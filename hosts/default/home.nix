@@ -4,7 +4,7 @@
   imports = [
     (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
     (import ../../modules/home-manager/tshmux.nix { inherit inputs; })
-    (import ../../modules/home-manager/zshmul.nix)
+    inputs.zshmul.homeManagerModules.default
   ];
 
   home.username = "shmul95";
@@ -45,17 +45,6 @@
     };
   };
 
-  programs.bash = {
-    enable = true;
-    bashrcExtra = ''
-      source /etc/profiles/per-user/${config.home.username}/etc/profile.d/hm-session-vars.sh
-
-      if command -v tmux >/dev/null 2>&1 && [[ -z "$TMUX" && $- == *i* && -t 1 ]]; then
-        exec tmux
-      fi
-    '';
-  };
-
   programs.kitty = {
     enable = true;
     settings = {
@@ -83,7 +72,7 @@
   # Install npm packages globally on rebuild
   home.activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
     run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
-    run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@openai/codex
+    # run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@openai/codex
 
     run ${pkgs.nodejs}/bin/npm install -g @github/copilot
     run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
