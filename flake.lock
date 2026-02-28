@@ -376,11 +376,11 @@
         "typewritten-theme": "typewritten-theme"
       },
       "locked": {
-        "lastModified": 1772296588,
-        "narHash": "sha256-sP1KhImSj2OtIJxcDU733+Ui4XbSoE8hrWnl4B8x5wM=",
+        "lastModified": 1772296746,
+        "narHash": "sha256-WxGJATyiotc48N2g/EDzLqW5px049MTiaFxLejUZ6PI=",
         "owner": "shmul95",
         "repo": "zshmul",
-        "rev": "496ebc75a3b72ebb6b7867f374a91998bbbbfc08",
+        "rev": "dc93b30e7db030d29f2730ec22230c276f1e899b",
         "type": "github"
       },
       "original": {
