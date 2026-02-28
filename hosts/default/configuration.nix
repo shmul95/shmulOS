@@ -10,7 +10,6 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/galileo.nix 
-      # ../../modules/nixos/hyprland.nix
 
       inputs.home-manager.nixosModules.default
     ];
@@ -35,6 +34,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -76,9 +76,7 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # # Enable Android dev (use built-in adb support instead of deprecated android-udev-rules)
-  # programs.adb.enable = true;
-
+  ## French honhonhon
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
@@ -88,7 +86,11 @@
   # Configure console keymap
   console.keyMap = "fr";
 
-  programs.dconf.enable = true;
+  # french keyboard
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "fr";
+    XKB_DEFAULT_VARIANT = "azerty";
+  };
 
   boot.kernelParams = [
     "amdgpu.dc=1"
@@ -130,6 +132,7 @@
     description = "shmul95";
     extraGroups = [ "networkmanager" "wheel" "adbusers" ];
     packages = with pkgs; [ ];
+    shell = pkgs.zsh;
   };
 
   home-manager.useGlobalPkgs = true;
@@ -137,34 +140,27 @@
   home-manager = {
     backupFileExtension = "hm-bak";
     extraSpecialArgs = { inherit inputs; };
-    users = {
-      "shmul95" = import ./home.nix;
-    };
-  };
-
-  # Install firefox.
-  programs.firefox.enable = true;
-
-  # Enable nix-ld to run non-Nix dynamically linked binaries.
-  programs.nix-ld = {
-    enable = true;
-    # Base libraries; extend this list if your project needs more.
-    libraries = with pkgs; [
-      stdenv.cc.cc
-      zlib
-    ];
+    users = { "shmul95" = import ./home.nix; };
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment = {
+  # programs
+  programs = {
+    zsh.enable = true;
+    firefox.enable = true;
 
-    # french honhonhon
-    sessionVariables = {
-      XKB_DEFAULT_LAYOUT = "fr";
-      XKB_DEFAULT_VARIANT = "azerty";
+    # idk what those
+    dconf.enable = true;
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [ stdenv.cc.cc zlib ];
     };
+  };
+
+  # environment
+  environment = {
 
     # system wide pkgs
     systemPackages = with pkgs; [
