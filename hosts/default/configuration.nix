@@ -4,7 +4,9 @@
 
 { config, pkgs, inputs, ... }:
 
-{
+let 
+  zshmul = inputs.zshmul.packages.${pkgs.system}.default;
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -87,12 +89,6 @@
   # Configure console keymap
   console.keyMap = "fr";
 
-  # Make sure wlroots-based compositors pick the right keyboard layout.
-  environment.sessionVariables = {
-    XKB_DEFAULT_LAYOUT = "fr";
-    XKB_DEFAULT_VARIANT = "azerty";
-  };
-
   programs.dconf.enable = true;
 
   boot.kernelParams = [
@@ -119,29 +115,15 @@
     #media-session.enable = true;
   };
 
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=no
-  '';
+  # systemd.sleep.extraConfig = ''
+  #   AllowSuspend=no
+  #   AllowHibernation=no
+  #   AllowHybridSleep=no
+  #   AllowSuspendThenHibernate=no
+  # '';
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # Provide a simple TUI greeter so we can launch Hyprland without GNOME.
-  # services.greetd = {
-  #   enable = true;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd ${pkgs.hyprland}/bin/Hyprland";
-  #       user = "greeter";
-  #     };
-  #     initial_session = {
-  #       command = "${pkgs.hyprland}/bin/Hyprland";
-  #       user = "shmul95";
-  #     };
-  #   };
-  # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shmul95 = {
@@ -149,6 +131,7 @@
     description = "shmul95";
     extraGroups = [ "networkmanager" "wheel" "adbusers" ];
     packages = with pkgs; [ ];
+    # shell = zshmul;
   };
 
   home-manager.useGlobalPkgs = true;
@@ -176,20 +159,52 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  
+  # Make sure wlroots-based compositors pick the right keyboard layout.
+  # environment.sessionVariables = {
+  #   XKB_DEFAULT_LAYOUT = "fr";
+  #   XKB_DEFAULT_VARIANT = "azerty";
+  # };
+  #
+  # environment.shells = [ inputs.zshmul.packages.${pkgs.system}.default ];
+  #
+  # # List packages installed in system profile. To search, run:
+  # # $ nix search wget
+  # environment.systemPackages = with pkgs; [
+  #   # for general purpose (would need to be cleaned)
+  #   home-manager
+  #
+  #   zsh tmux vim neovim
+  #
+  #   firefox
+  #   wget
+  #
+  #   phinger-cursors
+  # ];
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # for general purpose (would need to be cleaned)
-    home-manager
+  environment = {
 
-    zsh tmux vim neovim
+    # french honhonhon
+    sessionVariables = {
+      XKB_DEFAULT_LAYOUT = "fr";
+      XKB_DEFAULT_VARIANT = "azerty";
+    };
 
-    firefox
-    wget
 
-    phinger-cursors
-  ];
+    # my personal shell
+    # shells = [ zshmul ];
+
+    # system wide pkgs
+    systemPackages = with pkgs; [
+      home-manager
+      zsh zshmul
+      tmux
+      vim neovim
+
+      firefox wget
+      phinger-cursors
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

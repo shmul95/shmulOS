@@ -18,9 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zshmul = {
-      url = "github:shmul95/zshmul";
-    };
+    zshmul.url = "github:shmul95/zshmul";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
