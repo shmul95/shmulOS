@@ -2,34 +2,78 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [
-    (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
-    (import ../../modules/home-manager/tshmux.nix { inherit inputs; })
-    inputs.zshmul.homeManagerModules.default
-  ];
+  home = {
+    # home have all the var and packages installation
 
-  home.username = "shmul95";
-  home.homeDirectory = "/home/shmul95";
-  home.stateVersion = "25.05";
+    username = "shmul95";
+    homeDirectory = "/home/shmul95";
+    stateVersion = "25.05";
 
-  home.packages = with pkgs; [
-    gcc gnumake nodejs
-    kitty lazygit bat tree
-    discord
-    xclip wl-clipboard
-    pkgs.nerd-fonts.fira-code
-    pkgs.nerd-fonts.jetbrains-mono
-  ];
+    packages = with pkgs; [
+      gcc gnumake nodejs
+      kitty discord firefox
 
+      inputs.zshmul.packages.${pkgs.system}.default
+      # inputs.tshmux.packages.${pkgs.system}.default
+      # inputs.shmulvim.packages.${pkgs.system}.default
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    # x11.enable = true; # Uncomment if you use X11 apps frequently
-    package = pkgs.phinger-cursors;
-    name = "phinger-cursors-light";
-    size = 24;
+      nerd-fonts.jetbrains-mono
+    ];
+
+    sessionVariables = {
+      EDITOR = "nvim"; # later on shmulvim
+    };
+
+    # linked to the gtk config
+    pointerCursor = {
+      gtk.enable = true;
+      package = pkgs.phinger-cursors;
+      name = "phinger-cursors-light";
+      size = 24;
+    };
+
+    activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
+
+      run ${pkgs.nodejs}/bin/npm install -g @github/copilot
+      run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
+    '';
+
   };
-  
+
+  programs = {
+    # basic setup of some of the application
+
+    zsh = {
+      enable = true;
+      initContent = ''
+        if [[ $- == *i* ]]; then
+          exec zshmul
+        fi
+      '';
+    };
+
+    git = {
+      enable = true;
+      settings = {
+        user.name = "shmul95";
+        user.email = "samuel.gross@epitech.eu";
+      };
+    };
+
+    kitty = {
+      enable = true;
+      settings = {
+        font_family = "JetBrainsMono Nerd Font";
+        disable_ligatures = "never";
+        "font_features JetBrainsMono Nerd Font" = "+liga +calt";
+      };
+    };
+
+    home-manager.enable = true;
+  };
+
+  # cursor configuration
   gtk = {
     enable = true;
     cursorTheme = {
@@ -37,47 +81,13 @@
       name = "phinger-cursors-light";
     };
   };
-
-  programs.git = {
-    enable = true;
-    settings = {
-      user.name = "shmul95";
-      user.email = "samuel.gross@epitech.eu";
-    };
-  };
-
-  programs.kitty = {
-    enable = true;
-    settings = {
-      font_family = "JetBrainsMono Nerd Font";
-      disable_ligatures = "never";
-      # Enable ligatures for JetBrainsMono Nerd Font
-      "font_features JetBrainsMono Nerd Font" = "+liga +calt";
-    };
-  };
-
-  shmul.tshmux.enable = true;
-
-  home.file.".npmrc".text = ''
-    prefix=${config.xdg.dataHome}/npm
-  '';
-
-  home.sessionPath = [
-    "${config.xdg.dataHome}/npm/bin"
-  ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
-  # Install npm packages globally on rebuild
-  home.activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
-    # run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@openai/codex
-
-    run ${pkgs.nodejs}/bin/npm install -g @github/copilot
-    run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
-  '';
-
-  programs.home-manager.enable = true;
 }
+
+# { config, pkgs, lib, inputs, ... }:
+#
+# {
+#   imports = [
+#     (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
+#     (import ../../modules/home-manager/tshmux.nix { inherit inputs; })
+#     # inputs.zshmul.homeManagerModules.default
+#   ];
