@@ -445,11 +445,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1772321570,
-        "narHash": "sha256-XQAbjzPTenuyQxEMUb4Y/5j7ARlAx2Wa3V9+GlYW8pk=",
+        "lastModified": 1772322089,
+        "narHash": "sha256-DoRobaQRKmQOY/BXfTpDDAR+QcFjIW74KGjac7+onZ0=",
         "owner": "shmul95",
         "repo": "zshmul",
-        "rev": "aeb8f269bf099e5df92de504e82c03220ce5cd00",
+        "rev": "202ec657dbfd6fdeed1f353daeb9e8f594cbe9ed",
         "type": "github"
       },
       "original": {

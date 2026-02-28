@@ -32,12 +32,12 @@
       size = 24;
     };
 
-    activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
-
-      run ${pkgs.nodejs}/bin/npm install -g @github/copilot
-      run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
-    '';
+    # activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] /* sh */ ''
+    #   run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
+    #
+    #   run ${pkgs.nodejs}/bin/npm install -g @github/copilot
+    #   run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
+    # '';
 
   };
 
@@ -46,7 +46,7 @@
 
     zsh = {
       enable = true;
-      initContent = ''
+      initContent = /* sh */ ''
         if [[ $- == *i* ]]; then
           exec zshmul
         fi
