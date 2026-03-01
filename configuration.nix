@@ -9,7 +9,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/nixos/galileo.nix 
+      ./modules/galileo.nix 
 
       inputs.home-manager.nixosModules.default
     ];
@@ -165,7 +165,6 @@
     # system wide pkgs
     systemPackages = with pkgs; [
       home-manager
-      tmux
       vim neovim
 
       firefox wget
