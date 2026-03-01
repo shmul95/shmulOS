@@ -24,9 +24,13 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."shmul95" = home-manager.lib.homeManagerConfiguration {
-	inherit pkgs;
-	modules = [ ./home.nix ];
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+
+        modules = [
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
       };
     };
 }
