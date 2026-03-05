@@ -14,8 +14,8 @@
       kitty discord firefox
 
       inputs.zshmul.packages.${pkgs.system}.default
-      # inputs.tshmux.packages.${pkgs.system}.default
-      # inputs.shmulvim.packages.${pkgs.system}.default
+      inputs.tshmux.packages.${pkgs.system}.default
+      inputs.shmulvim.packages.${pkgs.system}.default
 
       nerd-fonts.jetbrains-mono
     ];
@@ -31,14 +31,6 @@
       name = "phinger-cursors-light";
       size = 24;
     };
-
-    # activation.installNpmPackages = lib.hm.dag.entryAfter ["writeBoundary"] /* sh */ ''
-    #   run rm -rf ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot
-    #
-    #   run ${pkgs.nodejs}/bin/npm install -g @github/copilot
-    #   run chmod +x ${config.xdg.dataHome}/npm/lib/node_modules/@github/copilot/index.js
-    # '';
-
   };
 
   programs = {
@@ -82,12 +74,3 @@
     };
   };
 }
-
-# { config, pkgs, lib, inputs, ... }:
-#
-# {
-#   imports = [
-#     (import ../../modules/home-manager/shmulvim.nix inputs.shmulvim)
-#     (import ../../modules/home-manager/tshmux.nix { inherit inputs; })
-#     # inputs.zshmul.homeManagerModules.default
-#   ];
