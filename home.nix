@@ -2,6 +2,15 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+  imports = [ ./modules/claude ];
+ 
+  sops = {
+    age.keyFile = "/home/shmul95/.config/sops/age/keys.txt";
+    defaultSopsFile = ./secrets/secrets.yaml;
+
+    secrets.obsidian_api_key = {};
+  };
+
   home = {
     # home have all the var and packages installation
 
@@ -12,6 +21,7 @@
     packages = with pkgs; [
       gcc gnumake nodejs
       kitty discord firefox
+      sops age
 
       inputs.zshmul.packages.${pkgs.system}.default
       inputs.tshmux.packages.${pkgs.system}.default
@@ -59,6 +69,15 @@
         font_family = "JetBrainsMono Nerd Font";
         disable_ligatures = "never";
         "font_features JetBrainsMono Nerd Font" = "+liga +calt";
+      };
+    };
+
+    claude = {
+      enable = true;
+      mcp.obsidian = {
+        enable = true;
+        apiKey = config.sops.secrets.obsidian_api_key.path;
+        vaultPath = "/home/shmul95/.claude-memory";
       };
     };
 

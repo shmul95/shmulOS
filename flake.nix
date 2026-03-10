@@ -17,9 +17,10 @@
 
     shmulvim.url = "github:shmul95/shmulvim";
     zshmul.url = "github:shmul95/zshmul";
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -29,7 +30,13 @@
 
         modules = [
           ./configuration.nix
+          sops-nix.nixosModules.sops
           inputs.home-manager.nixosModules.default
+          {
+            home-manager.sharedModules = [
+              sops-nix.homeManagerModules.sops
+            ];
+          }
         ];
       };
     };
