@@ -169,6 +169,12 @@
 
       firefox wget
       phinger-cursors
+
+      # for claudesidian
+      git
+      nodejs_20
+      nodePackages.pnpm
+      obsidian  # optional but recommended
     ];
   };
 
