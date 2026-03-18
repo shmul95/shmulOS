@@ -2,13 +2,14 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ./modules/claude.nix ];
- 
+  imports = [
+    inputs.shmulcode.homeManagerModules.default
+    inputs.shmulistan.homeManagerModules.default
+  ];
+
   sops = {
     age.keyFile = "/home/shmul95/.config/sops/age/keys.txt";
     defaultSopsFile = ./secrets/secrets.yaml;
-
-    secrets.obsidian_api_key = {};
   };
 
   home = {
@@ -19,7 +20,7 @@
     stateVersion = "25.05";
 
     packages = with pkgs; [
-      gcc gnumake nodejs
+      gcc gnumake nodejs gh
       kitty discord firefox
       sops age
 
@@ -75,11 +76,14 @@
 
     claude = {
       enable = true;
-      mcp.obsidian = {
-        enable = true;
-        apiKey = config.sops.secrets.obsidian_api_key.path;
-        vaultPath = "/home/shmul95/.claude-memory";
-      };
+      vault.enable = false;
+    };
+
+    shmulistan.enable = true;
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
     };
 
     home-manager.enable = true;

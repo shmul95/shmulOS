@@ -130,7 +130,7 @@
   users.users.shmul95 = {
     isNormalUser = true;
     description = "shmul95";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "docker" ];
     packages = with pkgs; [ ];
     shell = pkgs.zsh;
   };
@@ -169,12 +169,7 @@
 
       firefox wget
       phinger-cursors
-
-      # for claudesidian
       git
-      nodejs_20
-      nodePackages.pnpm
-      obsidian  # optional but recommended
     ];
   };
 
@@ -186,16 +181,18 @@
   #   enableSSHSupport = true;
   # };
 
+  virtualisation.docker.enable = true;
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8443 ]; # 8443 is used for the rura project
+  # networking.firewall.allowedTCPPorts = [ 8443 ]; # 8443 is used for the rura project
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
