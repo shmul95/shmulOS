@@ -5,6 +5,7 @@
   imports = [
     inputs.shmulcode.homeManagerModules.default
     inputs.shmulistan.homeManagerModules.default
+    inputs.shmulex.homeManagerModules.default
   ];
 
   sops = {
@@ -77,9 +78,27 @@
     claude = {
       enable = true;
       vault.enable = false;
+      package = pkgs.claude-code.overrideAttrs (old: rec {
+        version = "2.1.84";
+        src = pkgs.fetchzip {
+          url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
+          hash = "sha256-sUlqdQS8d9vha94d+/mwn+V88fiR0pzZBWezjM8Zl3Y=";
+        };
+        npmDepsHash = "sha256-RLgZhPnk0KrQGoULsSDPXddF2REcpakq7DmBXE2/7N0=";
+        postPatch = ''
+          cp ${./claude-code-2.1.84-package-lock.json} package-lock.json
+          substituteInPlace cli.js \
+            --replace-fail '#!/bin/sh' '#!/usr/bin/env sh'
+        '';
+      });
     };
 
     shmulistan.enable = true;
+
+    codex = {
+      enable = true;
+      source = inputs.shmulcode;
+    };
 
     direnv = {
       enable = true;

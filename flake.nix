@@ -16,10 +16,18 @@
     };
 
     shmulvim.url = "github:shmul95/shmulvim";
-    zshmul.url = "github:shmul95/zshmul";
+    zshmul = {
+      url = "github:shmul95/zshmul";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     shmulcode = {
       url = "git+ssh://git@github.com/shmul95/shmulcode.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    shmulex = {
+      url = "git+ssh://git@github.com/shmul95/shmulex.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
