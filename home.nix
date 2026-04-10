@@ -5,6 +5,7 @@
   imports = [
     inputs.shmulcode.homeManagerModules.default
     inputs.shmulistan.homeManagerModules.default
+    inputs.shmulex.homeManagerModules.default
   ];
 
   sops = {
@@ -87,6 +88,11 @@
     };
 
     home-manager.enable = true;
+  };
+
+  shmulex.codex = {
+    enable = true;
+    source = inputs.shmulcode;
   };
 
   # cursor configuration
