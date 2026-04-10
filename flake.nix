@@ -33,7 +33,19 @@
   outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      username = "shmul95";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+      homeConfig = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          ./home.nix
+          sops-nix.homeManagerModules.sops
+        ];
+      };
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
@@ -49,5 +61,8 @@
           }
         ];
       };
+
+      homeConfigurations.${username} = homeConfig;
+      homeManagerConfigurations.${username} = homeConfig;
     };
 }
