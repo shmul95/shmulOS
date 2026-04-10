@@ -391,11 +391,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775785162,
-        "narHash": "sha256-ORgJnv4mtN57buEGSlkvi3FRDLsyOvMa8JTqxkTBtl0=",
+        "lastModified": 1775785883,
+        "narHash": "sha256-iBcvLYIlkDlMrE4hgE+tqbNIorwOqtAPCpNfMv4d8lU=",
         "ref": "refs/heads/main",
-        "rev": "e3934afa528e80d21980c5baebf9f496dcf3c3b6",
-        "revCount": 1,
+        "rev": "e68c7d4c619f6129a31e8b5a9f9728e1120b6814",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@github.com/shmul95/shmulex.git"
       },
