@@ -25,9 +25,9 @@
       kitty discord firefox
       sops age
 
-      inputs.zshmul.packages.${pkgs.system}.default
-      inputs.tshmux.packages.${pkgs.system}.default
-      inputs.shmulvim.packages.${pkgs.system}.default
+      inputs.zshmul.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.tshmux.packages.${pkgs.stdenv.hostPlatform.system}.default
+      inputs.shmulvim.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       nerd-fonts.jetbrains-mono
     ];
@@ -90,14 +90,19 @@
     home-manager.enable = true;
   };
 
-  shmulex.codex = {
+  shmulex.source = inputs.shmulcode;
+
+  shmulex.codex.enable = true;
+
+  shmulex.claude = {
     enable = true;
-    source = inputs.shmulcode;
+    hybridRouting.enable = true;
   };
 
   # cursor configuration
   gtk = {
     enable = true;
+    gtk4.theme = config.gtk.theme;
     cursorTheme = {
       package = pkgs.phinger-cursors;
       name = "phinger-cursors-light";
