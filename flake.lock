@@ -369,11 +369,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775415810,
-        "narHash": "sha256-kM/rlzMJD0pWPI2ON77M9glJShvwgP2A2hdIqLdFe24=",
+        "lastModified": 1776187579,
+        "narHash": "sha256-dSFNWqP7fB8mCE4h1juKqykP0IHtNzZuDLmLAAIup/w=",
         "ref": "refs/heads/main",
-        "rev": "715f841653751e57f493462dd17339b150cbec22",
-        "revCount": 20,
+        "rev": "f3d764d2bff7b8cb183e1a572dc1f14dee435309",
+        "revCount": 21,
         "type": "git",
         "url": "ssh://git@github.com/shmul95/shmulcode.git"
       },
