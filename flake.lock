@@ -411,11 +411,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776107514,
-        "narHash": "sha256-536DgzHpLGrriNoUefKn22V6pRm3tTSo4WP1egd/16o=",
+        "lastModified": 1776188449,
+        "narHash": "sha256-zYOCEctf0zkUVeXyTUNv+m1XccELb4YwJMjTHm9oF8Q=",
         "ref": "refs/heads/main",
-        "rev": "b3eafacc59431641e982d2b97cd6f14d0c06f901",
-        "revCount": 192,
+        "rev": "13f12fba7a1f551e89aaa9e8d3aea473af5a7aea",
+        "revCount": 195,
         "type": "git",
         "url": "ssh://git@github.com/shmul95/shmulistan.git"
       },
