@@ -92,12 +92,14 @@
 
   shmulex.source = inputs.shmulcode;
 
-  shmulex.codex.enable = true;
+  shmulex.enable = true;
 
-  shmulex.claude = {
-    enable = true;
-    hybridRouting.enable = true;
-  };
+  shmulex.roles.enable = true;
+  shmulex.codexAgents.enable = false;
+
+  shmulex.claudeMcp.enable = true;
+  shmulex.claudeCommands.enable = true;
+  shmulex.claudeRoutingPolicy.enable = true;
 
   # cursor configuration
   gtk = {
