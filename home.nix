@@ -52,8 +52,8 @@
     zsh = {
       enable = true;
       initContent = /* sh */ ''
-        if [[ $- == *i* ]]; then
-          exec zshmul
+        if [[ $- == *i* ]] && command -v tshmux >/dev/null 2>&1 && [[ -z "$TMUX" && -z "$TSHMUX" ]]; then
+          tshmux
         fi
       '';
     };
@@ -97,9 +97,9 @@
   shmulex.roles.enable = true;
   shmulex.codexAgents.enable = false;
 
-  shmulex.claudeMcp.enable = true;
-  shmulex.claudeCommands.enable = true;
-  shmulex.claudeRoutingPolicy.enable = true;
+  shmulex.claudeMcp.enable = false;
+  shmulex.claudeCommands.enable = false;
+  shmulex.claudeRoutingPolicy.enable = false;
 
   # cursor configuration
   gtk = {
