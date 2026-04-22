@@ -77,7 +77,7 @@
 
     claude = {
       enable = true;
-      vault.enable = false;
+      vault.enable = true;
     };
 
     shmulistan.enable = true;
