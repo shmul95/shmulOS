@@ -10,67 +10,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tshmux = {
-      url = "github:shmul95/tshmux";
+    my-cabanashmul = {
+      url = "git+ssh://git@github.com/shmul95/my-cabanashmul.git";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
-
-    shmulvim.url = "github:shmul95/shmulvim";
-    zshmul = {
-      url = "github:shmul95/zshmul";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    shmulcode = {
-      url = "git+ssh://git@github.com/shmul95/shmulcode.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    shmulex = {
-      url = "git+ssh://git@github.com/shmul95/shmulex.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    shmulistan = {
-      url = "git+ssh://git@github.com/shmul95/shmulistan.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, my-cabanashmul, ... }@inputs:
     let
-      system = "x86_64-linux";
       username = "shmul95";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-      homeConfig = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          ./home.nix
-          sops-nix.homeManagerModules.sops
-        ];
-      };
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
 
         modules = [
           ./configuration.nix
-          sops-nix.nixosModules.sops
-          inputs.home-manager.nixosModules.default
-          {
-            home-manager.sharedModules = [
-              sops-nix.homeManagerModules.sops
-            ];
-          }
+          home-manager.nixosModules.default
         ];
       };
 
-      homeConfigurations.${username} = homeConfig;
-      homeManagerConfigurations.${username} = homeConfig;
+      homeConfigurations.${username} =
+        my-cabanashmul.homeConfigurations."${username}-personal";
     };
 }

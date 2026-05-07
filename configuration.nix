@@ -3,15 +3,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./modules/galileo.nix 
-
-      inputs.home-manager.nixosModules.default
+      ./modules/galileo.nix
     ];
 
   # Bootloader.
@@ -139,8 +137,15 @@
   home-manager.useUserPackages = true;
   home-manager = {
     backupFileExtension = "hm-bak";
-    extraSpecialArgs = { inherit inputs; };
-    users = { "shmul95" = import ./home.nix; };
+    extraSpecialArgs = {
+      inherit inputs;
+      activeProfileName = "personal";
+      activeProfile     = inputs.my-cabanashmul.cabanashmul.profiles.personal;
+      context           = "desktop";
+    };
+    users.shmul95 = {
+      imports = [ inputs.my-cabanashmul.homeManagerModules.default ];
+    };
   };
 
   # Allow unfree packages
@@ -152,7 +157,15 @@
     firefox.enable = true;
 
     # idk what those
-    dconf.enable = true;
+    dconf = {
+      enable = true;
+      profiles.user.databases = [{
+        settings."org/gnome/desktop/interface" = {
+          cursor-theme = "phinger-cursors-light";
+          cursor-size  = lib.gvariant.mkInt32 24;
+        };
+      }];
+    };
     nix-ld = {
       enable = true;
       libraries = with pkgs; [ stdenv.cc.cc zlib ];
